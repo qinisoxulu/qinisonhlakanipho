@@ -1,0 +1,118 @@
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Tailwind colours follow the Rspress theme, so light and dark both work. */
+@theme inline {
+  --color-fg: var(--rp-c-text-1);
+  --color-muted: var(--rp-c-text-2);
+  --color-line: var(--rp-c-divider);
+  --color-surface: var(--rp-c-bg-soft);
+  --color-raised: var(--rp-c-bg-mute);
+  --color-ink: var(--rp-c-bg);
+  --color-accent: var(--rp-c-brand);
+  --color-live: #12a36b;
+  --color-signal: var(--signal);
+  --font-sans: 'TikTok Sans Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* TikTok Sans and the #FE2C55 brand colour across the Rspress theme. */
+:root {
+  --rp-font-family-base: 'TikTok Sans Variable', ui-sans-serif, system-ui,
+    -apple-system, 'Segoe UI', sans-serif;
+  --rp-c-brand: #fe2c55;
+  --rp-c-brand-light: #ff5a7a;
+  --rp-c-brand-lighter: #ff8aa0;
+  --rp-c-brand-dark: #e01b45;
+  --rp-c-brand-darker: #b8123a;
+  --rp-c-link: #e01b45;
+  --rp-home-hero-secondary-color: #ff7a59;
+}
+:root.dark {
+  --rp-c-link: #ff5a7a;
+  --rp-c-brand-dark: #fe2c55;
+  --rp-home-hero-secondary-color: #ff9a76;
+}
+
+/* "Open to opportunities" colour: TikTok's cyan-green, darkened in light mode
+   so the text stays readable. */
+:root {
+  --signal: #078a85;
+}
+:root.dark {
+  --signal: #25f4ee;
+}
+
+/* Dark mode is neutral grey, with no blue or purple in the greys.
+   `html:root.dark` outranks the theme's own dark palette. */
+html:root.dark {
+  --rp-c-bg: #121212;
+  --rp-c-bg-alt: #121212;
+  --rp-c-bg-soft: #1a1a1a;
+  --rp-c-bg-mute: #242424;
+  --rp-c-divider: #2e2e2e;
+  --rp-c-divider-light: #262626;
+  --rp-c-text-1: #f2f2f2;
+  --rp-c-text-2: #a6a6a6;
+  --rp-c-text-3: #7d7d7d;
+}
+html:root.dark body {
+  background-color: var(--rp-c-bg);
+}
+
+.btn-gradient {
+  background-image: linear-gradient(90deg, #fe2c55, #ff7a59);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth navigation: a frosted bar, eased hovers and a soft page-in. */
+:root .rp-nav {
+  background-color: color-mix(in srgb, var(--rp-c-bg) 80%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  backdrop-filter: saturate(180%) blur(14px);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+:root .rp-nav a,
+:root .rp-nav button {
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.settle {
+  animation: page-in 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.settle-late {
+  animation: page-in 0.55s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .settle,
+  .settle-late {
+    animation: none;
+  }
+}
+
+/* A portfolio does not need search (also switched off in rspress.config.ts). */
+.rp-search-button,
+.rp-nav [class*='search' i] {
+  display: none !important;
+}
