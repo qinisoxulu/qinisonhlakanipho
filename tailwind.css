@@ -1,118 +1,81 @@
 @import 'tailwindcss';
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Tailwind colours follow the Rspress theme, so light and dark both work. */
+/* Flat, simple colours. Light and dark are plain neutrals with no gradients. */
+:root {
+  --c-bg: #ffffff;
+  --c-alt: #f2f2f3;
+  --c-fg: #111111;
+  --c-muted: #4b4b52;
+  --c-line: #d4d4d8;
+  --c-brand: #fe2c55;
+  --c-brand-hover: #e0214a;
+  --c-chip: #3f3f46;
+  --c-chip-fg: #ffffff;
+  --c-blue: #1f5fe0;
+  --c-green: #008a84;
+}
+:root.dark {
+  --c-bg: #0e0e0f;
+  --c-alt: #171718;
+  --c-fg: #f4f4f5;
+  --c-muted: #b0b0b8;
+  --c-line: #2d2d31;
+  --c-brand-hover: #ff4d70;
+  --c-chip: #d4d4d8;
+  --c-chip-fg: #18181b;
+  --c-blue: #2f6fed;
+  --c-green: #008a84;
+}
+
 @theme inline {
-  --color-fg: var(--rp-c-text-1);
-  --color-muted: var(--rp-c-text-2);
-  --color-line: var(--rp-c-divider);
-  --color-surface: var(--rp-c-bg-soft);
-  --color-raised: var(--rp-c-bg-mute);
-  --color-ink: var(--rp-c-bg);
-  --color-accent: var(--rp-c-brand);
-  --color-live: #12a36b;
-  --color-signal: var(--signal);
+  --color-bg: var(--c-bg);
+  --color-alt: var(--c-alt);
+  --color-fg: var(--c-fg);
+  --color-muted: var(--c-muted);
+  --color-line: var(--c-line);
+  --color-brand: var(--c-brand);
+  --color-brand-hover: var(--c-brand-hover);
+  --color-chip: var(--c-chip);
+  --color-chip-fg: var(--c-chip-fg);
+  --color-blue: var(--c-blue);
+  --color-green: var(--c-green);
   --font-sans: 'TikTok Sans Variable', ui-sans-serif, system-ui, sans-serif;
 }
 
-/* TikTok Sans and the #FE2C55 brand colour across the Rspress theme. */
-:root {
+/* Point the Rspress variables at the same neutrals so nothing shows blue. */
+:root,
+:root.dark {
   --rp-font-family-base: 'TikTok Sans Variable', ui-sans-serif, system-ui,
     -apple-system, 'Segoe UI', sans-serif;
-  --rp-c-brand: #fe2c55;
-  --rp-c-brand-light: #ff5a7a;
-  --rp-c-brand-lighter: #ff8aa0;
-  --rp-c-brand-dark: #e01b45;
-  --rp-c-brand-darker: #b8123a;
-  --rp-c-link: #e01b45;
-  --rp-home-hero-secondary-color: #ff7a59;
-}
-:root.dark {
-  --rp-c-link: #ff5a7a;
-  --rp-c-brand-dark: #fe2c55;
-  --rp-home-hero-secondary-color: #ff9a76;
-}
-
-/* "Open to opportunities" colour: TikTok's cyan-green, darkened in light mode
-   so the text stays readable. */
-:root {
-  --signal: #078a85;
-}
-:root.dark {
-  --signal: #25f4ee;
-}
-
-/* Dark mode is neutral grey, with no blue or purple in the greys.
-   `html:root.dark` outranks the theme's own dark palette. */
-html:root.dark {
-  --rp-c-bg: #121212;
-  --rp-c-bg-alt: #121212;
-  --rp-c-bg-soft: #1a1a1a;
-  --rp-c-bg-mute: #242424;
-  --rp-c-divider: #2e2e2e;
-  --rp-c-divider-light: #262626;
-  --rp-c-text-1: #f2f2f2;
-  --rp-c-text-2: #a6a6a6;
-  --rp-c-text-3: #7d7d7d;
-}
-html:root.dark body {
-  background-color: var(--rp-c-bg);
-}
-
-.btn-gradient {
-  background-image: linear-gradient(90deg, #fe2c55, #ff7a59);
+  --rp-c-bg: var(--c-bg);
+  --rp-c-bg-soft: var(--c-alt);
+  --rp-c-bg-alt: var(--c-alt);
+  --rp-c-text-1: var(--c-fg);
+  --rp-c-text-2: var(--c-muted);
+  --rp-c-divider: var(--c-line);
+  --rp-c-brand: var(--c-brand);
+  --rp-nav-height: 0px;
 }
 
 html {
+  font-size: 106.25%;
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  background: var(--c-bg);
+}
+body {
+  background: var(--c-bg);
+  color: var(--c-fg);
 }
 
-/* Smooth navigation: a frosted bar, eased hovers and a soft page-in. */
-:root .rp-nav {
-  background-color: color-mix(in srgb, var(--rp-c-bg) 80%, transparent);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
-  backdrop-filter: saturate(180%) blur(14px);
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease;
-}
-:root .rp-nav a,
-:root .rp-nav button {
-  transition:
-    color 0.2s ease,
-    background-color 0.2s ease,
-    opacity 0.2s ease;
-}
-
-@keyframes page-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.settle {
-  animation: page-in 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-.settle-late {
-  animation: page-in 0.55s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+/* The page draws its own header, so hide the Rspress navigation bar. */
+.rp-nav {
+  display: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .settle,
-  .settle-late {
-    animation: none;
-  }
-}
-
-/* A portfolio does not need search (also switched off in rspress.config.ts). */
-.rp-search-button,
-.rp-nav [class*='search' i] {
-  display: none !important;
 }

@@ -4,7 +4,7 @@ import { site } from '../data';
 type State = 'idle' | 'sending' | 'sent' | 'error' | 'opened';
 
 const field =
-  'mt-1.5 w-full rounded-lg border border-line bg-ink px-3.5 py-2.5 text-fg outline-none transition placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25';
+  'mt-1.5 w-full rounded-md border-2 border-line bg-bg px-3.5 py-3 text-base text-fg outline-none transition-colors focus:border-fg';
 
 export function ContactForm() {
   const [state, setState] = useState<State>('idle');
@@ -44,16 +44,16 @@ export function ContactForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-5" noValidate={false}>
       <div className="grid gap-5 sm:grid-cols-2">
-        <label className="block text-sm font-medium text-fg">
+        <label className="block text-base font-medium text-fg">
           Your name
           <input name="name" type="text" required autoComplete="name" className={field} />
         </label>
-        <label className="block text-sm font-medium text-fg">
+        <label className="block text-base font-medium text-fg">
           Your email
           <input name="email" type="email" required autoComplete="email" className={field} />
         </label>
       </div>
-      <label className="block text-sm font-medium text-fg">
+      <label className="block text-base font-medium text-fg">
         Message
         <textarea name="message" required rows={6} className={field} />
       </label>
@@ -69,11 +69,11 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={state === 'sending'}
-          className="inline-flex items-center justify-center rounded-lg bg-accent px-6 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-60"
+          className="inline-flex items-center justify-center rounded-md bg-brand px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-brand-hover disabled:opacity-60"
         >
           {state === 'sending' ? 'Sending...' : 'Send message'}
         </button>
-        <p role="status" aria-live="polite" className="text-sm text-muted">
+        <p role="status" aria-live="polite" className="text-base text-muted">
           {state === 'sent' && 'Message sent. I will reply to the email you gave.'}
           {state === 'opened' && 'Your email app should have opened with the message ready to send.'}
           {state === 'error' && `The message did not send. Please email ${site.email} directly.`}

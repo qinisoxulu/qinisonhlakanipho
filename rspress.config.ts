@@ -19,27 +19,14 @@ export default defineConfig({
   search: false,
   globalStyles: path.join(__dirname, 'tailwind.css'),
   head: [
-    '<meta name="theme-color" content="#FE2C55">',
+    '<meta name="theme-color" content="#0e0e0f">',
     '<meta property="og:title" content="Qiniso Xulu | Software Engineer">',
     '<meta property="og:description" content="Junior software engineer in Johannesburg. Founder of Vennor and creator of the open source Lynxkit.">',
     '<meta property="og:type" content="website">',
   ],
   themeConfig: {
-    search: false,
-    nav: [
-      { text: 'Work', link: '/projects' },
-      { text: 'About', link: '/about' },
-      { text: 'Training', link: '/training' },
-      { text: 'Documents', link: '/documents' },
-      { text: 'Contact', link: '/contact' },
-    ],
-    socialLinks: [
-      {
-        icon: 'github',
-        mode: 'link',
-        content: 'https://github.com/qinisoxulu',
-      },
-    ],
+    // One page: the site draws its own header, so Rspress's nav is hidden.
+    nav: [],
   },
   builderConfig: {
     plugins: [pluginTailwindcss()],

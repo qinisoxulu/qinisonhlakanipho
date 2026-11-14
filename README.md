@@ -1,9 +1,8 @@
 # Qiniso Xulu portfolio
 
-Built with [Rspress](https://rspress.rs/) and Tailwind CSS v4 (set up as in the
-[Rspress Tailwind guide](https://rspress.rs/ui/tailwindcss)), laid out like
-[tiktok.github.io/sparkling](https://tiktok.github.io/sparkling), and set in
-TikTok Sans with the #FE2C55 accent.
+A one-page portfolio built with [Rspress](https://rspress.rs/) and Tailwind CSS v4
+(set up as in the [Rspress Tailwind guide](https://rspress.rs/ui/tailwindcss)),
+set in TikTok Sans.
 
 ## Run it
 
@@ -18,15 +17,12 @@ pnpm preview
 
 | What | Where |
 | --- | --- |
-| Home hero (name, tagline, buttons) | `src/components/Home.tsx` |
-| Home list under the hero | `src/data.ts` (`highlights`) |
-| Contact details, CV path, form endpoint | `src/data.ts` (`site`) |
-| Projects, education, experience, skills | `src/data.ts` |
-| Training page (Mecer table, WeThinkCode_ modules) | `src/data.ts` (`mecer`, `wtc`) |
-| Colours and fonts | `tailwind.css` |
-| Nav items | `rspress.config.ts` (`themeConfig.nav`) |
-| Favicon | `docs/public/favicon.svg` |
-| CV | `docs/public/Qiniso_Xulu_CV.pdf` |
+| Contact details, links, CV path, form endpoint | `src/data.ts` (`site`) |
+| At a glance, projects, education, experience, skills | `src/data.ts` |
+| Hero text, section order, layout | `src/components/Page.tsx` |
+| Header and footer | `theme/index.tsx` |
+| Colours (light and dark) | `tailwind.css` (the `:root` and `:root.dark` blocks) |
+| Photo, logos, CV | `docs/public/` |
 
 ## Contact form
 
@@ -40,6 +36,7 @@ from the page, create a free [Formspree](https://formspree.io/) or
 
 - Source lives in `src/` and `theme/`, not `docs/`, because Rspress turns every
   file in `docs/` into a route.
+- The Rspress navigation bar is hidden; `theme/index.tsx` draws the header.
 - Delete `package-lock.json` if you use pnpm.
 
 ## Deploy to GitHub Pages

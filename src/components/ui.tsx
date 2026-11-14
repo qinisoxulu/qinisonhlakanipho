@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 
 const isAsset = (href: string) => /\.[a-z0-9]+$/i.test(href);
 
-/** Internal routes use the Rspress router; files and external links use plain anchors. */
+/** Hash links scroll the page; files and external links use plain anchors. */
 export function A({
   href,
   className = '',
@@ -25,6 +25,13 @@ export function A({
       </a>
     );
   }
+  if (href.startsWith('#')) {
+    return (
+      <a href={href} className={className}>
+        {children}
+      </a>
+    );
+  }
   if (isAsset(href)) {
     return (
       <a href={withBase(href)} className={className}>
@@ -39,60 +46,55 @@ export function A({
   );
 }
 
+export const asset = (path: string) => withBase(path);
+
+export const textLink =
+  'font-semibold underline underline-offset-4 decoration-1 transition-colors hover:text-brand';
+
 export const btnPrimary =
-  'inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white no-underline transition hover:opacity-90';
-export const btnGhost =
-  'inline-flex items-center justify-center rounded-lg border border-line px-5 py-2.5 text-sm font-semibold text-fg no-underline transition hover:bg-surface';
+  'inline-flex items-center justify-center rounded-md bg-brand px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-brand-hover';
+export const btnOutline =
+  'inline-flex items-center justify-center rounded-md border-2 border-fg px-6 py-[10px] text-base font-semibold text-fg transition-colors hover:bg-fg hover:text-bg';
 
 export function Container({ children }: { children: ReactNode }) {
-  return <div className="mx-auto w-full max-w-5xl px-6 sm:px-8">{children}</div>;
+  return <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">{children}</div>;
 }
 
-export function PageHeader({
+export function Section({
+  id,
   title,
   children,
 }: {
+  id: string;
   title: string;
-  children?: ReactNode;
+  children: ReactNode;
 }) {
   return (
-    <header className="pb-10 pt-14 sm:pt-20">
-      <h1 className="settle text-4xl font-bold tracking-tight text-fg sm:text-5xl">
-        {title}
-      </h1>
-      {children ? (
-        <p className="settle-late mt-5 max-w-xl text-lg leading-relaxed text-muted">
-          {children}
-        </p>
-      ) : null}
-    </header>
+    <section id={id} className="border-t border-line py-14 sm:py-20">
+      <Container>
+        <h2 className="mb-8 text-3xl font-bold tracking-tight text-fg sm:text-4xl">
+          {title}
+        </h2>
+        {children}
+      </Container>
+    </section>
   );
 }
 
+/** Blue chip for technologies and skills. */
 export function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-md bg-raised px-2 py-0.5 text-xs text-muted">
+    <span className="inline-block rounded-sm bg-blue px-2.5 py-1 text-sm font-medium text-white">
       {children}
     </span>
   );
 }
 
-export function StatusBadge({ status }: { status: string }) {
-  const live = status === 'Live';
+/** Grey chip for dates: dark grey in light mode, light grey in dark mode, text swaps to match. */
+export function DateTag({ children }: { children: ReactNode }) {
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium ${
-        live ? 'bg-live/10 text-live' : 'bg-accent/10 text-accent'
-      }`}
-    >
-      <span className={`size-1.5 rounded-full ${live ? 'bg-live' : 'bg-accent'}`} />
-      {status}
+    <span className="inline-block rounded-sm bg-chip px-2.5 py-1 text-sm font-medium text-chip-fg">
+      {children}
     </span>
-  );
-}
-
-export function SectionTitle({ children }: { children: ReactNode }) {
-  return (
-    <h2 className="text-2xl font-bold tracking-tight text-fg">{children}</h2>
   );
 }
